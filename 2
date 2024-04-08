@@ -1,0 +1,320 @@
+local Notif = loadstring(game:HttpGet("https://api-sirclub.onrender.com/scripts/raw/notifybottom.lua"))()
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "BTH", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+local Tab = Window:MakeTab({Name = "Chỉ Số Và Skill", Icon = "rbxassetid://4483345998", PremiumOnly = false})
+local Section = Tab:AddSection({Name = "Tự Động Nâng Chỉ Số"
+ })
+ Tab:AddToggle({Name = "Auto Sword", Default = false,Callback = function(z)
+ getgenv().autostats = z 
+ spawn(function() 
+ while autostats do wait() 
+for i = 1,50000 do game:GetService("ReplicatedStorage"):FindFirstChild("StatSystem"):WaitForChild("Points"):FireServer("Sword") 
+ wait() 
+end
+ end 
+ end) 
+ end})
+ Tab:AddToggle({Name = "Auto DF", Default = false,Callback = function(x)
+ getgenv().autostatsf = x
+ spawn(function() 
+ while autostatsf do wait() 
+for i = 1,50000 do game:GetService("ReplicatedStorage"):FindFirstChild("StatSystem"):WaitForChild("Points"):FireServer("DevilFruit") 
+ wait() 
+end
+ end 
+ end) 
+ end})
+ Tab:AddToggle({Name = "Auto HP", Default = false,Callback = function(z)
+ getgenv().autostatsh = z 
+ spawn(function() 
+ while autostatsh do wait() 
+for i = 1,50000 do game:GetService("ReplicatedStorage"):FindFirstChild("StatSystem"):WaitForChild("Points"):FireServer("MaxHealth") 
+ wait() 
+end
+ end 
+ end) 
+ end})
+ Tab:AddToggle({Name = "Auto Melee", Default = false,Callback = function(z)
+ getgenv().autostatsm = z 
+ spawn(function() 
+ while autostatsm == true do wait() 
+for i = 1,50000 do game:GetService("ReplicatedStorage"):FindFirstChild("StatSystem"):WaitForChild("Points"):FireServer("Melee") 
+ wait() 
+end
+ end 
+ end) 
+ end})
+ local Section = Tab:AddSection({Name = "Tự Động Skill"
+ })
+ Tab:AddToggle({Name = "Tự Động Z", Default = false,Callback = function(z)
+getgenv().autoskill = z
+while autoskill do wait()
+pcall(function()
+for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+if v:IsA("Tool") and v:FindFirstChild("Z") then
+for i,c in pairs(v.Z:GetChildren()) do
+if c:IsA("RemoteEvent") then
+c:FireServer()
+end
+end
+end
+end
+end)
+end
+end})
+Tab:AddToggle({Name = "Tự Động X", Default = false,Callback = function(z)
+getgenv().autoskillx = z
+while autoskillx do wait()
+pcall(function()
+for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+if v:IsA("Tool") and v:FindFirstChild("Z") then
+for i,c in pairs(v.X:GetChildren()) do
+if c:IsA("RemoteEvent") then
+c:FireServer()
+end
+end
+end
+end
+end)
+end
+end})
+Tab:AddToggle({Name = "Tự Động C", Default = false,Callback = function(z)
+getgenv().autoskillc = z
+while autoskillc do wait()
+pcall(function()
+for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+if v:IsA("Tool") and v:FindFirstChild("Z") then
+for i,c in pairs(v.C:GetChildren()) do
+if c:IsA("RemoteEvent") then
+c:FireServer()
+end
+end
+end
+end
+end)
+end
+end})
+Tab:AddToggle({Name = "Tự Động V", Default = false,Callback = function(z)
+getgenv().autoskillv = z
+while autoskillv do wait()
+pcall(function()
+for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+if v:IsA("Tool") and v:FindFirstChild("Z") then
+for i,c in pairs(v.V:GetChildren()) do
+if c:IsA("RemoteEvent") then
+c:FireServer()
+end
+end
+end
+end
+end)
+end
+end})
+Tab:AddToggle({Name = "Tự Động B", Default = false,Callback = function(z)
+getgenv().autoskillf = z
+while autoskillf do wait()
+pcall(function()
+for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+if v:IsA("Tool") and v:FindFirstChild("Z") then
+for i,c in pairs(v.B:GetChildren()) do
+if c:IsA("RemoteEvent") then
+c:FireServer()
+end
+end
+end
+end
+end)
+end
+end})
+Tab:AddToggle({Name = "Tự Động N", Default = false,Callback = function(z)
+getgenv().autoskilln = z
+while autoskilln do wait()
+pcall(function()
+for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+if v:IsA("Tool") and v:FindFirstChild("Z") then
+for i,c in pairs(v.N:GetChildren()) do
+if c:IsA("RemoteEvent") then
+c:FireServer()
+end
+end
+end
+end
+end)
+end
+end})
+local Section = Tab:AddSection({Name = "Khác"
+ })
+ 
+local Tab = Window:MakeTab({Name = "Người Chơi", Icon = "rbxassetid://4483345998", PremiumOnly = false})
+getgenv().tele = nil
+local Section = Tab:AddSection({Name = "Section"})
+
+local function UpdatePlayerList()
+local plrlist = {}
+for i, v in pairs(game.Players:GetPlayers()) do
+table.insert(plrlist, v.Name)
+end
+return plrlist
+end
+
+local dr = Tab:AddDropdown({Name = "Người Chơi", Default = "1", Options = UpdatePlayerList(), Callback = function(v)
+print(v)
+getgenv().tele = v
+end})
+
+local function RefreshPlayerList()
+local newPlrList = UpdatePlayerList()
+dr:Refresh(newPlrList, true)
+end
+spawn(function()
+while wait(5) do
+RefreshPlayerList()
+end
+end)
+Tab:AddButton({Name = "Dịch Chuyển Vào Người Chơi", Callback = function()
+if getgenv().tele and game.Players[getgenv().tele] and game.Players[getgenv().tele].Character then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[getgenv().tele].Character.HumanoidRootPart.CFrame
+end 
+end})
+Tab:AddButton({Name = "Dồn Skill Vào Người Chơi", Callback = function()
+if getgenv().tele and game.Players[getgenv().tele] and game.Players[getgenv().tele].Character then
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[plr].Character.HumanoidRootPart.CFrame  
+  wait()  
+  for i,v in pairs(game.Players:GetDescendants()) do  
+  if v:IsA("RemoteEvent") and v.Name == "Fire" then  
+  v:FireServer()  
+  end  
+  end
+  end
+ end})
+Tab:AddToggle({Name = "Góc Nhìn Người Chơi", Default = false,Callback = function(h) 
+ getgenv().view = h 
+ spawn(function() 
+ while view do wait() 
+ workspace.CurrentCamera.CameraSubject = game.Players[getgenv().tele].Character 
+ if view == false then 
+ workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character 
+ end
+ end
+ end)
+ end})
+  Tab:AddToggle({Name = "Hitbox Người Chơi", Default = false,Callback = function(v) 
+_G.HeadSize = 2500
+_G.Disabled = v
+local function hit()
+if _G.Disabled then
+for i,v in next, game:GetService('Players'):GetPlayers() do
+if v.Name == getgenv().tele then
+pcall(function()
+sethiddenproperty(game.Players.LocalPlayer,"SimulationRadius", math.huge)
+v.Character.HumanoidRootPart.Size = Vector3.new(_G.HeadSize,_G.HeadSize,_G.HeadSize)
+v.Character.HumanoidRootPart.Transparency = 5
+v.Character.HumanoidRootPart.CanCollide = false
+end)
+end
+end
+else _G.HeadSize = 0
+end
+end
+game:GetService('RunService').RenderStepped:connect(hit)
+end})
+   Tab:AddToggle({Name = "Bring Người Chơi", Default = false,Callback = function(a)
+  local v2 = nil
+getgenv().bri = a
+if v2 then a:Disconnect() end
+if bri ~= v2 then
+v2 = game.RunService.RenderStepped:Connect(function()
+if bri == false then v2:Disconnect() end
+game.Players[getgenv().tele].Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -5) wait()
+sethiddenproperty(game.Players.LocalPlayer,"SimulationRadius", math.huge)  
+  end)  
+ end 
+  end})
+ Tab:AddToggle({Name = "⭐Chém Nhanh X15", Default = false,Callback = function(z)
+ getgenv().auto2 = e 
+ for _ = 1,15 do 
+ spawn(function() 
+ while auto2 do wait() 
+ for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do 
+ if v:IsA("Tool") and v:FindFirstChild("Hitbox") then 
+ v.Hitbox:FireServer(90,90,90) 
+ end 
+ end 
+ end 
+ end) 
+ end 
+ end})
+
+local Tab = Window:MakeTab({Name = "Đảo", Icon = "rbxassetid://4483345998", PremiumOnly = false})
+  Tab:AddButton(Name = "Kaido Island lv 2000",Callback = function()  
+          local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart  
+          rootPart.CFrame = CFrame.new(-708.903564, 87687.7266, 809.050476, 0.312079072, -9.11389222e-08, 0.950056136, -5.59602764e-09, 1, 9.77682433e-08, -0.950056136, -3.58279628e-08, 0.312079072)*CFrame.new(0, 5, 0)  
+  end})
+Tan:AddButton(Name = "Garp Island lv 200000+",Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2006.93689, 87696.8516, -59.0255051, 0.0173726063, -1.32637981e-08, -0.999849081, -3.41540378e-08, 1, -1.38592346e-08, 0.999849081, 3.43896538e-08, 0.0173726063)
+end)
+Tab:AddButton(Name = "Sukuna Island lv 50000+",Callback = function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1453.3580322265625, 87687.90625, 2773.896240234375)
+end})
+  Tab:AddButton(Name = "Garou Island lv 20000+",Callback = function()  
+          local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart  
+          rootPart.CFrame = CFrame.new(1538.36804, 87694.3438, 1098.62891, -0.157189935, -1.33758995e-08, -0.987568378, -4.27874554e-08, 1, -6.73385481e-09, 0.987568378, 4.1197044e-08, -0.157189935)*CFrame.new(0, 5, 0)  
+  end})
+  Tab:AddButton(Name = "Nickbeo Island lv 7000+",Callback = function()  
+          local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart  
+          rootPart.CFrame = CFrame.new(-1622.85156, 87698.5469, 622.421936, -0.0521310531, -0, -0.998640239, -0, 1, -0, 0.998640239, 0, -0.0521310531)*CFrame.new(0, 10, 0)  
+  end})
+  Tab:AddButton(Name = "Marine Island lv 3000+",Callback =  function()  
+          local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart  
+          rootPart.CFrame = CFrame.new(-152.420593, 87740.3125, -2115.33057, -0.995318413, 0, 0.0966506973, 0, 1, -0, -0.0966507122, 0, -0.995318294)*CFrame.new(0, 15, 0)  
+  end})
+  Tab:AddButton({Name = "Platinum Town lv 2000+",Callback = function()  
+          local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart  
+          rootPart.CFrame = CFrame.new(-1280.56299, 87693.3281, 3242.69702, -0.0239899773, -0, -0.999712229, -0, 1, -0, 0.999712229, 0, -0.0239899773)*CFrame.new(0,9, 0)  
+  end})
+ local Tab = Window:MakeTab({Name = "Skill Độc Nhất", Icon = "rbxassetid://4483345998", PremiumOnly = false})
+ Tab:AddButton({Name = "Nút Skill",Callback = function() 
+  -- Khai báo các biến cần thiết
+local ContextActionService = game:GetService("ContextActionService")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local Character = LocalPlayer.Character
+
+-- Hàm xử lý khi người chơi nhấn nút skill
+local function handleSkill(actionName, inputState, inputObject)
+    -- Kiểm tra xem người chơi có nhấn nút hay không
+    if inputState == Enum.UserInputState.Begin then
+        -- Lấy tên skill từ actionName
+        local skillName = string.sub(actionName, 6)
+        for i, v in pairs(Character:GetChildren()) do
+if v:IsA("Tool") then
+if v[skillName]:FindFirstChild("Fire") then
+        v[skillName].Fire:FireServer()
+else
+        v[skillName].RemoteEvent:FireServer()
+    end
+end
+end
+end
+end
+
+-- Hàm tạo nút skill trên màn hình điện thoại
+local function createSkillButton(skillName, position)
+    -- Tạo một actionName duy nhất cho mỗi skill
+    local actionName = "Skill" .. skillName
+    -- Đăng ký hành động với ContextActionService
+    ContextActionService:BindAction(actionName, handleSkill, true, Enum.KeyCode[skillName])
+    -- Thiết lập hình ảnh cho nút skill
+    ContextActionService:SetImage(actionName, "rbxassetid://5754154247") -- Bạn có thể thay đổi id này với hình ảnh khác
+    -- Thiết lập vị trí cho nút skill
+    ContextActionService:SetPosition(actionName, position)
+end
+
+-- Tạo 4 nút skill Z X C V với vị trí tùy ý
+createSkillButton("Z", UDim2.new(0.1, 4, 0.8, -200))
+createSkillButton("X", UDim2.new(0.1, 4, 0.8, -165))
+createSkillButton("C", UDim2.new(0.1, 4, 0.8, -130))
+createSkillButton("V", UDim2.new(0.1, 4, 0.8, -63))
+createSkillButton("N", UDim2.new(0.1, 4, 0.8, -25))
+ end})
+ 
+OrionLib:Init()
