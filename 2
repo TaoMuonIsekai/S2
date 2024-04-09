@@ -250,7 +250,7 @@ local Tab = Window:MakeTab({Name = "Đảo", Icon = "rbxassetid://4483345998", P
           local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart  
           rootPart.CFrame = CFrame.new(-708.903564, 87687.7266, 809.050476, 0.312079072, -9.11389222e-08, 0.950056136, -5.59602764e-09, 1, 9.77682433e-08, -0.950056136, -3.58279628e-08, 0.312079072)*CFrame.new(0, 5, 0)  
   end})
-Tan:AddButton({Name = "Garp Island lv 200000+",Callback = function()
+Tab:AddButton({Name = "Garp Island lv 200000+",Callback = function()
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2006.93689, 87696.8516, -59.0255051, 0.0173726063, -1.32637981e-08, -0.999849081, -3.41540378e-08, 1, -1.38592346e-08, 0.999849081, 3.43896538e-08, 0.0173726063)
 end})
 Tab:AddButton({Name = "Sukuna Island lv 50000+",Callback = function()
@@ -319,7 +319,7 @@ createSkillButton("N", UDim2.new(0.1, 4, 0.8, -25))
  end})
   Tab:AddToggle({Name = "Oneshot Quái",Default = false,Callback = function(v)
   getgenv().one = v
-  while one do wait(6)
+  while one do wait(4)
  for i, v in pairs(game.Workspace: GetDescendants()) do
 if v.Parent.Name ~= game.Players.LocalPlayer.Name and v:IsA("Humanoid") and v.Health > 0 then
 v.Health = 0
