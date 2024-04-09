@@ -317,5 +317,12 @@ createSkillButton("C", UDim2.new(0.1, 4, 0.8, -130))
 createSkillButton("V", UDim2.new(0.1, 4, 0.8, -63))
 createSkillButton("N", UDim2.new(0.1, 4, 0.8, -25))
  end})
- 
+  Tab:AddButton({Name = "Oneshot Quái",Callback = function()
+ for i, v in pairs(game.Workspace: GetDescendants()) do
+if v.Parent.Name ~= game.Players.LocalPlayer.Name and v:IsA("Humanoid") then
+v.Health = 0
+end
+end
+sethiddenproperty(game.Players.LocalPlayer,"SimulationRadius", math.huge)
+end})
 OrionLib:Init()
