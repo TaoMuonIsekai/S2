@@ -274,11 +274,9 @@ end})
   end})
  local Tab = Window:MakeTab({Name = "Skill Độc Nhất", Icon = "rbxassetid://4483345998", PremiumOnly = false})
  Tab:AddButton({Name = "Nút Skill",Callback = function() 
-  -- Khai báo các biến cần thiết
 local ContextActionService = game:GetService("ContextActionService")
 local function handleSkill(actionName, inputState, inputObject)
     if inputState == Enum.UserInputState.Begin then
-        -- Lấy tên skill từ actionName
         local skillName = string.sub(actionName, 6)
         for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
 if v:IsA("Tool") then
