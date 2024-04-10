@@ -276,17 +276,11 @@ end})
  Tab:AddButton({Name = "Nút Skill",Callback = function() 
   -- Khai báo các biến cần thiết
 local ContextActionService = game:GetService("ContextActionService")
-local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
-local Character = LocalPlayer.Character
-
--- Hàm xử lý khi người chơi nhấn nút skill
 local function handleSkill(actionName, inputState, inputObject)
-    -- Kiểm tra xem người chơi có nhấn nút hay không
     if inputState == Enum.UserInputState.Begin then
         -- Lấy tên skill từ actionName
         local skillName = string.sub(actionName, 6)
-        for i, v in pairs(Character:GetChildren()) do
+        for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
 if v:IsA("Tool") then
 if v[skillName]:FindFirstChild("Fire") then
         v[skillName].Fire:FireServer()
@@ -297,20 +291,12 @@ end
 end
 end
 end
-
--- Hàm tạo nút skill trên màn hình điện thoại
 local function createSkillButton(skillName, position)
-    -- Tạo một actionName duy nhất cho mỗi skill
     local actionName = "Skill" .. skillName
-    -- Đăng ký hành động với ContextActionService
     ContextActionService:BindAction(actionName, handleSkill, true, Enum.KeyCode[skillName])
-    -- Thiết lập hình ảnh cho nút skill
-    ContextActionService:SetImage(actionName, "rbxassetid://5754154247") -- Bạn có thể thay đổi id này với hình ảnh khác
-    -- Thiết lập vị trí cho nút skill
+    ContextActionService:SetImage(actionName, "rbxassetid://5754154247")
     ContextActionService:SetPosition(actionName, position)
 end
-
--- Tạo 4 nút skill Z X C V với vị trí tùy ý
 createSkillButton("Z", UDim2.new(0.1, 4, 0.8, -200))
 createSkillButton("X", UDim2.new(0.1, 4, 0.8, -165))
 createSkillButton("C", UDim2.new(0.1, 4, 0.8, -130))
