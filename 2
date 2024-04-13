@@ -199,7 +199,8 @@ Tab:AddToggle({Name = "Góc Nhìn Người Chơi", Default = false,Callback = fu
  end)
  end})
   Tab:AddToggle({Name = "Hitbox Người Chơi", Default = false,Callback = function(v) 
-_G.HeadSize = 2500
+  local num = 2500
+_G.HeadSize = num
 _G.Disabled = v
 local function hit()
 if _G.Disabled then
@@ -213,7 +214,7 @@ v.Character.HumanoidRootPart.CanCollide = false
 end)
 end
 end
-else _G.HeadSize = 0
+else num = 0
 end
 end
 game:GetService('RunService').RenderStepped:connect(hit)
@@ -221,14 +222,11 @@ end})
    Tab:AddToggle({Name = "Bring Người Chơi", Default = false,Callback = function(a)
   local v2 = nil
 getgenv().bri = a
-if v2 then a:Disconnect() end
-if bri ~= v2 then
-v2 = game.RunService.RenderStepped:Connect(function()
+v2 = game:GetService("RunService").RenderStepped:Connect(function()
 if bri == false then v2:Disconnect() end
 game.Players[getgenv().tele].Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -5) wait()
 sethiddenproperty(game.Players.LocalPlayer,"SimulationRadius", math.huge)  
   end)  
- end 
   end})
  Tab:AddToggle({Name = "⭐Chém Nhanh X15", Default = false,Callback = function(z)
  getgenv().auto2 = e 
