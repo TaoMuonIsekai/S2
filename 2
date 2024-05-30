@@ -315,13 +315,25 @@ createSkillButton("V", UDim2.new(0.1, 4, 0.8, -90))
 createSkillButton("B", UDim2.new(0.1, 4, 0.8, -53))
 createSkillButton("N", UDim2.new(0.1, 4, 0.8, -16))
  end})
-  Tab:AddToggle({Name = "Oneshot Quái",Default = false,Callback = function(v)
-  getgenv().one = v
-  while one do wait(4)
- for i, v in pairs(game.Workspace: GetDescendants()) do
-if v.Parent.Name ~= game.Players.LocalPlayer.Name and v:IsA("Humanoid") and v.Health > 0 then
-v.Health = 0
+ Tab:AddToggle({Name = "Kill Aura 500",Default = false,Callback = function(v)
+ getgenv().aura= v
+local dis = 500
+if getgenv().aura == nil then
+OrionLib:MakeNotification({
+	Name = "Beta Hub!",
+	Content = "Địt Mẹ Có Lỗi",
+	Image = "rbxassetid://4483345998",
+	Time = 5
+})
+else
+while aura do wait(.1)
+for i, v in pairs(game:GetService("Workspace")["NPC DAMAGE"]:GetDescendants()) do
+if v:FindFirstChild("Enemy") and v.Enemy.Health > 0 and (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).Magnitude < math.random(dis) then
+pcall(function()
+v.Enemy.Health = 0
 sethiddenproperty(game.Players.LocalPlayer,"SimulationRadius", math.huge)
+end)
+end
 end
 end
 end
