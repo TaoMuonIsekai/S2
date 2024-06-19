@@ -319,20 +319,17 @@ createSkillButton("N", UDim2.new(0.1, 4, 0.8, -16))
  getgenv().aura= v
 local dis = 300
 if getgenv().aura == nil then
-OrionLib:MakeNotification({
-	Name = "Beta Hub!",
-	Content = "Địt Mẹ Có Lỗi",
-	Image = "rbxassetid://4483345998",
-	Time = 5
-})
+print("cc")
 else
-while aura do task.wait(.1)
+while aura do wait(.7)
 for i, v in pairs(game:GetService("Workspace")["NPC DAMAGE"]:GetDescendants()) do
-if v:FindFirstChild("Enemy") and v.Enemy.Health > 0 and (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).Magnitude < math.random(dis) then
-pcall(function()
-v.Enemy.Health = 0
+if v:FindFirstChild("Enemy") and v:FindFirstChild("HumanoidRootPart") and v.Enemy.Health > 0 then
+if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).Magnitude < math.random(dis) then
 sethiddenproperty(game.Players.LocalPlayer,"SimulationRadius", math.huge)
-end)
+v.Enemy.WalkSpeed = 0
+v.HumanoidRootPart.CanCollide = false
+v.Enemy.Health = 0
+end
 end
 end
 end
